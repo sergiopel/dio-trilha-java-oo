@@ -16,12 +16,15 @@ public class ExemploSet {
         // adicionar um elemento numa determinada posição. Também não
         // tem como substituir um elemento por outro
 
-        System.out.println("Confirma se a nota 5.0 está no conjunto: " + notas.contains(5d));
+        System.out.println("Confira se a nota 5.0 está no conjunto: " + notas.contains(5d));
 
+        // Seu funciomento é análogo ao exemplo do List
         System.out.println("Exiba a menor nota: " + Collections.min(notas));
 
+        // Seu funciomento é análogo ao exemplo do List
         System.out.println("Exiba a maior nota: " + Collections.max(notas));
 
+        // Seu funciomento é análogo ao exemplo do List
         System.out.println("Exiba a soma dos valores: ");
         Iterator<Double> iterator = notas.iterator();
         Double soma = 0.0;
@@ -31,12 +34,15 @@ public class ExemploSet {
         }
         System.out.println("A soma dos valores é: " + soma);
 
+        // Seu funciomento é análogo ao exemplo do List
         System.out.println("Exiba a média das notas: " + (soma / notas.size()));
 
+        // Seu funciomento é análogo ao exemplo do List, exceto que não acessa o índice, mas somente o valor
         System.out.println("Remova a nota 0: ");
         notas.remove(0d);
         System.out.println(notas);
 
+        // Seu funciomento é análogo ao exemplo do List
         System.out.println("Remova as notas menores que 7 e exiba a lista: ");
         Iterator<Double> iterator1 = notas.iterator();
         while(iterator1.hasNext()){
@@ -57,15 +63,18 @@ public class ExemploSet {
         notas2.add(0d);
         notas2.add(3.6);
         // como visto anteriormente o Set não permite incluir valor repetido,
-        // por isso a ide já identifica
+        // por isso a ide já identifica erro
         System.out.println(notas2);
 
+        // TreeSet organiza com a ordem natural dos elementos, então como notas2 é um Set
+        // do tipo Double, já implementa o Comparable
         System.out.println("Exiba todas as notas na ordem crescente: ");
         Set<Double> notas3 = new TreeSet<>(notas2);
         System.out.println(notas3);
         // O TreeSet acima só funcionou porque o notas2 tem Double que tem
         // Comparable
 
+        //Seu funciomento é análogo ao exemplo do List
         System.out.println("Apague todo o conjunto");
         notas.clear();
         System.out.println("Confira se o conjunto está vazio: " + notas.isEmpty());

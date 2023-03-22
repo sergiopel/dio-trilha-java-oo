@@ -15,6 +15,9 @@ public class ExemploOrdenacaoSet {
     public static void main(String[] args) {
 
         System.out.println("--\tOrdem aleatória\t--");
+        //Como usa a Set, a implementação HashSet tem por default mostrar pela ordem aleatória
+        // 1o. Criar a classe Serie
+        // 2o. Criar a Set e inserir os minhas séries conforme está sendo pedido
         Set<Serie> minhasSeries = new HashSet<>(){{
             add(new Serie("got", "fantasia", 60));
             add(new Serie("dark","drama", 60));
@@ -25,6 +28,7 @@ public class ExemploOrdenacaoSet {
                     " - " + serie.getTempoEpisodio());
         }
 
+        // A implementação LinkedHashSet mantém a ordem da inserção
         System.out.println("--\tOrdem inserção\t--");
         // Utilizar LinkedHashSet
         Set<Serie> minhasSeries2 = new LinkedHashSet<>(){{
@@ -37,12 +41,14 @@ public class ExemploOrdenacaoSet {
                     " - " + serie.getTempoEpisodio());
         }
 
+
         System.out.println("--\tOrdem natural (TempoEpisodio)\t--");
         // Utilizar TreeSet
         Set<Serie> minhasSeries3 = new TreeSet<>(minhasSeries2);
         //System.out.println(minhasSeries3);
-        // dará, erro, então a partir desse momento deverei criar um
-        // Comparable para a minha classe Serie
+        // dará, erro, então a partir desse momento deverei implementar a interface
+        // Comparable na minha classe Serie, sendo que o método obrigatório
+        // compareTo deverá comparar o tempoEpisodio
         for (Serie serie: minhasSeries3) {
             System.out.println(serie.getNome() + " - " + serie.getGenero() +
                     " - " + serie.getTempoEpisodio());
@@ -50,6 +56,8 @@ public class ExemploOrdenacaoSet {
         // no foreach acima não sairá o 'dark', pois possui o mesmo TempoEpisodio de 60
         // e o Set não recebe objetos iguais, então foi preciso mudar a sobrescrita
         // compareTo da classe Serie
+
+
 
         System.out.println("--\tOrdem Nome/Gênero/TempoEpisodio\t--");
         // precisa criar uma classe comparator
@@ -72,8 +80,6 @@ class Serie implements Comparable<Serie>{
     private String nome;
     private String genero;
     private Integer tempoEpisodio;
-
-
 
     public Serie(String nome, String genero, Integer tempoEpisodio) {
         this.nome = nome;
@@ -102,6 +108,8 @@ class Serie implements Comparable<Serie>{
                 '}';
     }
 
+    // Quando estiver implementando interfaces que no nome tem a palavra "Hash",
+    // é importante sobrescrever o equals e o hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,10 +125,13 @@ class Serie implements Comparable<Serie>{
 
     @Override
     public int compareTo(Serie serie) {
+        // no Set não apresenta duplicidade, então se o tempo do episodio se repetir só sairá um deles
+        // neste caso
         int tempoEpisodio = Integer.compare(this.getTempoEpisodio(), serie.getTempoEpisodio());
         // se os tempos dos episódios comparados forem diferentes
-        if (tempoEpisodio != 0) return tempoEpisodio;
+        if (tempoEpisodio != 0) return tempoEpisodio; // se não forem iguais retorna aqui
 
+        // se forem iguais compara com gênero para poder sair todos
         return this.getGenero().compareTo(serie.getGenero());
 
     }
