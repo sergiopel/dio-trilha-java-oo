@@ -6,6 +6,7 @@ import java.util.*;
 
 public class ExemploList {
     public static void main(String[] args) {
+        // Dada uma lista com 7 notas, de um aluno [7d, 8.5, 9.3, 5d, 7d, 0d, 3.6], faça:
         //Crie uma lista e adicione 7 notas
 
         //Forma antiga de iniciar uma List - antes do java5
@@ -72,16 +73,22 @@ public class ExemploList {
 
         System.out.println("Exiba a terceira nota adicionada: " + notas.get(2));
 
-        // Aqui é preciso pegar da classe Collections
+        // Aqui não existe um método nativo no List
+        // Então é preciso pegar da classe Collections
+        // Para fazer a comparação dos valores da lista notas, internamente
+        // ele utiliza a Interface Comparable, e como a minha lista é do tipo
+        // Double ela implementa a interface Comparable
+        // Para observar isso, abrir a classe Double
         System.out.println("Exiba a menor nota: " + Collections.min(notas));
 
         System.out.println("Exiba a maior nota: " + Collections.max(notas));
 
-        // é preciso utilizar o método iterator para apresentar a soma dos
+        // Não existe um método sum da lista para fazer a soma de uma só vez
+        // É preciso utilizar o método iterator para apresentar a soma uma por uma dos
         // valores da lista
         Iterator<Double> iterator = notas.iterator();
-        double soma = 0d;
-        while (iterator.hasNext()){
+        Double soma = 0d;
+        while (iterator.hasNext()){ //enquanto tiver próximo elemento
             Double next = iterator.next();
             soma += next;
         }
@@ -89,6 +96,7 @@ public class ExemploList {
 
         System.out.println("Quantidade de elementos da lista: " + notas.size());
 
+        // Para saber a quantidade de elementos da lista utilizar o método size
         System.out.println("Exiba a média dos valores: " + (soma/notas.size()));
 
         // Sabemos que a lista é de double, então se eu colocar um valor que seja
@@ -101,6 +109,8 @@ public class ExemploList {
         notas.remove(0);
         System.out.println(notas);
 
+        // No método remove abaixo não tem nenhum argumento pq o iterator1 já
+        // contém o valor.
         System.out.println("Remova as notas menores que 7 e exiba a lista: ");
         Iterator<Double> iterator1 = notas.iterator();
         while(iterator1.hasNext()){
@@ -115,7 +125,30 @@ public class ExemploList {
 
         System.out.println("Verificar se a lista está vazia: " + notas.isEmpty());
 
-        System.out.println("Como organizar elementos dentro de um List: ");
+
+//Resolva esses exercícios utilizando os métodos da implementação LinkedList
+
+        System.out.println("Crie uma lista chamada notas2, implementando LinkedList " +
+                  "e coloque todos os elementos da list ArrayList nessa nova Lista: ");
+
+        notas.add(7d);
+        notas.add(8.5);
+        notas.add(9.3);
+        notas.add(5.0);
+        notas.add(7.0);
+        notas.add(0.0);
+        notas.add(3.6);
+        List<Double> notas2 = new LinkedList<>();
+        Iterator<Double> iterator2 = notas.iterator();
+        while (iterator2.hasNext()){ //enquanto tiver próximo elemento
+            Double next = iterator2.next();
+            notas2.add(next);
+        }
+        System.out.println("Elementos da lista nota2 com a implementação LinkedList: " + notas2);
+
+        System.out.println("Mostre a primeira nota da nova lista sem removê-lo: " + notas2.get(0));
+        System.out.println("Mostre a primeira nota da nova lista removendo-o: " + notas2.remove(0));
+        System.out.println("Lista com a primeira posição removida: " + notas2);
 
     }
 }
