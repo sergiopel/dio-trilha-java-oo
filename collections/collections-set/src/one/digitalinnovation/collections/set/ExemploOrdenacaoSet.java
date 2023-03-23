@@ -69,7 +69,14 @@ public class ExemploOrdenacaoSet {
         }
 
         // para fazer depois:
-        //System.out.println("--\tOrdem Gênero\t--");
+        System.out.println("--\tOrdem Gênero\t--");
+        Set<Serie> minhasSeries5 = new TreeSet<>(new ComparatorGenero());
+        minhasSeries5.addAll(minhasSeries);
+        for (Serie serie:minhasSeries5) {
+            System.out.println(serie.getNome() + " - " + serie.getGenero() +
+                    " - " + serie.getTempoEpisodio());
+        }
+
         //System.out.println("--\tOrdem TempoEpisodio\t--");
 
 
@@ -144,13 +151,22 @@ class ComparatorNomeGeneroTempoEpisodio implements Comparator<Serie>{
     public int compare(Serie s1, Serie s2) {
         // se os nomes forem diferentes, vou comparar por nome
         int nome = s1.getNome().compareTo(s2.getNome());
-        if (nome != 0) return nome;
+        if (nome != 0) return nome; // se não são iguais, retorna o nome
 
-        // se os generos forem diferentes, vou comparar por genero
+        // se os nomes acima forem iguais, vem pra cá e compara os generos
         int genero = s1.getGenero().compareTo(s2.getGenero());
-        if (genero != 0) return genero;
+        if (genero != 0) return genero; // se os generos não forem iguais, retorna o genero
 
-        // por ultimo, vou comparar por tempo do episodio
+        // por ultimo, se os generos acima forem iguais, vem pra cá e compara os tempo dos episodios
         return Integer.compare(s1.getTempoEpisodio(), s2.getTempoEpisodio());
+    }
+}
+
+class ComparatorGenero implements Comparator<Serie>{
+
+    @Override
+    public int compare(Serie s1, Serie s2) {
+        return s1.getGenero().compareToIgnoreCase(s2.getGenero());
+
     }
 }
