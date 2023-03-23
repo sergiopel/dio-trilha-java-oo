@@ -15,14 +15,20 @@ Dadas as seguintes informações sobre meus livros favoritos e seus autores, cri
  */
 public class ExemploOrdenacaoMap {
     public static void main(String[] args) {
+        //1o. criar a classe Livro
+        // Deverá imprimir (Nome Autor - Nome Livro)
         System.out.println("--\tOrdem Aleatória\t--");
         // ordem aleatória, usar hashmap
         Map<String, Livro> meusLivros = new HashMap<>(){{
+            // relembrando sintexe: put(chave, valor)
+            // então: put (Autor, Livro)
             put("Hawking, Stephen", new Livro("Uma breve história do tempo", 256));
             put("Duhigg, Charles", new Livro("O poder do hábito", 408));
             put("Harari, Yuval Noah", new Livro("21 lições para o século 21", 432));
         }};
 
+        // para trabalhar com elementos separadamente, deve-se usar o método entrySet,
+        // pois eu só quero pegar a chave e o valor sendo somente o nome do livro, mas não o nr.paginas
         for (Map.Entry<String, Livro> livro : meusLivros.entrySet()) {
             System.out.println(livro.getKey() + " - " + livro.getValue().getNome());
         }
@@ -60,7 +66,15 @@ public class ExemploOrdenacaoMap {
         }
 
 
-        //System.out.println("--\tOrdem Número de Página\t--");
+        System.out.println("--\tOrdem Número de Página\t--");
+        // Aqui o número das páginas dos livros estão na parte dos valores ("chave", valor), então
+        // preciso usar o Set e TreeSet, pois preciso passar um Comparator
+        Set<Map.Entry<String, Livro>> meusLivros5 = new TreeSet<>(new ComparatorNrPaginas());
+        meusLivros5.addAll(meusLivros.entrySet());
+        for (Map.Entry<String, Livro> livro : meusLivros5) {
+            System.out.println(livro.getKey() + " - " + livro.getValue().getPaginas());
+        }
+
     }
 }
 
@@ -108,5 +122,13 @@ class ComparatorNome implements Comparator<Map.Entry<String, Livro>>{
     @Override
     public int compare(Map.Entry<String, Livro> l1, Map.Entry<String, Livro> l2) {
         return l1.getValue().getNome().compareToIgnoreCase(l2.getValue().getNome());
+    }
+}
+
+class ComparatorNrPaginas implements Comparator<Map.Entry<String, Livro>>{
+
+    @Override
+    public int compare(Map.Entry<String, Livro> l1, Map.Entry<String, Livro> l2) {
+        return l1.getValue().getPaginas().compareTo(l2.getValue().getPaginas());
     }
 }

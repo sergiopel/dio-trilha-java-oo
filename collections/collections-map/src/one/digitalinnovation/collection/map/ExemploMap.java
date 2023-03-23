@@ -23,8 +23,8 @@ modelo = kwid - consumo - 15,6km/l
 
         System.out.println("Crie um dicionário que relacione os modelos e seus respectivos consumos: ");
         // com o HasMap, a ordem da inserção não necessariamente será a ordem impressa abaixo
-        Map<String, Double> carrosPopulares = new HashMap<>(){{
-            put("gol", 14.4);
+        Map<String, Double> carrosPopulares = new HashMap<>(){{ //chave = modelo, valor = consumo
+            put("gol", 14.4); //no Map não tem o método add, no lugar dele utilizar o put
             put("uno", 15.6);
             put("mobi", 16.1);
             put("hb20", 14.5);
@@ -40,21 +40,26 @@ modelo = kwid - consumo - 15,6km/l
 
         System.out.println("Confira se o modelo mobi está no dicionário: " +  carrosPopulares.containsKey("mobi"));
 
-        System.out.println("Exiba o consumo do uno: " + carrosPopulares.get("uno"));
+        System.out.println("Exiba o consumo do uno: " + carrosPopulares.get("uno")); // aqui passou a chave e retorna o valor
 
         //System.out.println("Exiba o terceiro modelo adicionado: ");
         // não tem esse método
 
         System.out.println("Exiba os modelos: ");
-        Set<String> modelos = carrosPopulares.keySet();
+        Set<String> modelos = carrosPopulares.keySet();  //método keySet retorna um Set
         System.out.println(modelos);
 
+        //o método values retorna ua Collection
         System.out.println("Exiba os consumos dos carros: ");
         Collection<Double> consumos = carrosPopulares.values();
         System.out.println(consumos);
 
         System.out.println("Exiba o modelo mais econômico e seu consumo: ");
+        // seguindo o exemplo acima, preciso pegar os valores, utilizando o método values,
+        // que retorna um Collections, aí uso o método max para pegar o valor maior
         Double consumoMaisEficiente = Collections.max(carrosPopulares.values());
+        // método entrySet é um método especial, ela retorna um Set e os elementos desse Set
+        // é do tipo Entry, com uma string e um double
         Set<Map.Entry<String, Double>> entries = carrosPopulares.entrySet();
         String modeloMaisEficiente = "";
         for (Map.Entry<String, Double> entry: entries) {
@@ -84,8 +89,10 @@ modelo = kwid - consumo - 15,6km/l
         }
         System.out.println("Exiba a soma dos consumos: " + soma);
 
+
         System.out.println("Exiba a média dos consumos deste dicionário de carros: " +
                 (soma / carrosPopulares.size()));
+
 
         System.out.println("Remova os modelos com o consumo igual a 15,6 km/l: ");
         System.out.println(carrosPopulares);
@@ -95,8 +102,9 @@ modelo = kwid - consumo - 15,6km/l
         }
         System.out.println(carrosPopulares);
 
+
         System.out.println("Exiba todos os carros na ordem em que foram informados: ");
-        // utilizar o LinkedHashMap
+        // utilizar o LinkedHashMap que respeita a ordem da inserção
         Map<String, Double> carrosPopulares2 = new LinkedHashMap<>(){{
             put("gol", 14.4);
             put("uno", 15.6);
@@ -111,9 +119,11 @@ modelo = kwid - consumo - 15,6km/l
         Map<String, Double> carrosPopulares3 = new TreeMap<>(carrosPopulares2);
         System.out.println(carrosPopulares3.toString());
 
+
         System.out.println("Apague o dicionário de carros: ");
         carrosPopulares.clear();
         System.out.println(carrosPopulares);
+
 
         System.out.println("Confirma se o dicionário está vazio: " + carrosPopulares.isEmpty());
     }
